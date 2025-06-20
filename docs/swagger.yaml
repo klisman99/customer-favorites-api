@@ -1,0 +1,394 @@
+basePath: /
+definitions:
+  handler.AuthRequest:
+    properties:
+      password:
+        minLength: 8
+        type: string
+      username:
+        minLength: 3
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  handler.CustomerCreateRequest:
+    properties:
+      email:
+        example: john@example.com
+        type: string
+      name:
+        example: John Doe
+        minLength: 3
+        type: string
+    required:
+    - email
+    - name
+    type: object
+  handler.CustomerResponse:
+    properties:
+      email:
+        example: john@example.com
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      name:
+        example: John Doe
+        type: string
+    type: object
+  handler.CustomerUpdateRequest:
+    properties:
+      email:
+        example: john@example.com
+        type: string
+      name:
+        example: John Doe
+        minLength: 3
+        type: string
+    required:
+    - email
+    - name
+    type: object
+  handler.ErrorResponse:
+    properties:
+      message:
+        example: Error message
+        type: string
+    type: object
+  handler.FavoriteIncludeRequest:
+    properties:
+      product_id:
+        example: 123
+        type: integer
+    required:
+    - product_id
+    type: object
+  handler.Product:
+    properties:
+      category:
+        example: Electronics
+        type: string
+      description:
+        example: Latest smartphone model
+        type: string
+      id:
+        example: 123
+        type: integer
+      name:
+        example: Smartphone XYZ
+        type: string
+      price:
+        example: 999.99
+        type: number
+    type: object
+host: localhost:3002
+info:
+  contact: {}
+  description: This is an API to manage customer favorites products
+  title: Customer Favorites API
+  version: "1.0"
+paths:
+  /api/v1/customers:
+    get:
+      description: Retrieves a list of all customers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of customers
+          schema:
+            items:
+              $ref: '#/definitions/handler.CustomerResponse'
+            type: array
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Get all customers
+      tags:
+      - Customer
+    post:
+      consumes:
+      - application/json
+      description: Creates a new customer with the provided details
+      parameters:
+      - description: Customer details
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/handler.CustomerCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created customer details
+        "400":
+          description: Invalid request data
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "409":
+          description: Email already exists
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Create a new customer
+      tags:
+      - Customer
+  /api/v1/customers/{customer_id}:
+    delete:
+      description: Deletes a customer by their ID
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customer_id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No content
+        "400":
+          description: Invalid customer ID format
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Customer not found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Delete customer
+      tags:
+      - Customer
+    get:
+      description: Retrieves a customer by their unique identifier
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customer_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Customer details
+          schema:
+            $ref: '#/definitions/handler.CustomerResponse'
+        "400":
+          description: Invalid customer ID format
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Customer not found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Get customer by ID
+      tags:
+      - Customer
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing customer's details
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customer_id
+        required: true
+        type: string
+      - description: Updated customer details
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/handler.CustomerUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No content
+        "400":
+          description: Invalid request data or customer ID
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Customer not found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "409":
+          description: Email already in use
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Update customer
+      tags:
+      - Customer
+  /api/v1/customers/{customer_id}/favorites:
+    get:
+      description: Retrieves a list of all favorite products for the specified customer
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customer_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of favorite products
+          schema:
+            items:
+              $ref: '#/definitions/handler.Product'
+            type: array
+        "400":
+          description: Invalid customer ID
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Customer not found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Failed to fetch favorite products
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Get customer's favorite products
+      tags:
+      - Favorite
+    post:
+      consumes:
+      - application/json
+      description: Adds a product to the specified customer's list of favorite products
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customer_id
+        required: true
+        type: string
+      - description: Product to add to favorites
+        in: body
+        name: favorite
+        required: true
+        schema:
+          $ref: '#/definitions/handler.FavoriteIncludeRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Product added to favorites
+        "400":
+          description: Invalid request data
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Customer not found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Failed to add to favorites
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Add a product to customer's favorites
+      tags:
+      - Favorite
+  /api/v1/customers/{customer_id}/favorites/{product_id}:
+    delete:
+      description: Removes a product from the customer's list of favorite products
+      parameters:
+      - description: Customer ID
+        in: path
+        name: customer_id
+        required: true
+        type: string
+      - description: Product ID to remove from favorites
+        in: path
+        name: product_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Product removed from favorites
+        "400":
+          description: Invalid product ID
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Product not found in favorites
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Failed to remove from favorites
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Remove a product from favorites
+      tags:
+      - Favorite
+  /signin:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate a user and return a JWT token
+      parameters:
+      - description: Sign in credentials
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/handler.AuthRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Invalid request data
+        "401":
+          description: Unauthorized
+        "500":
+          description: Failed to sign in
+      summary: Sign in
+      tags:
+      - Auth
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user account
+      parameters:
+      - description: Sign up credentials
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/handler.AuthRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Invalid request data
+        "409":
+          description: Username already exists
+        "500":
+          description: Failed to sign up
+      summary: Sign up
+      tags:
+      - Auth
+swagger: "2.0"

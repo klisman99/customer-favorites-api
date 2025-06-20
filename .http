@@ -1,0 +1,86 @@
+GET http://localhost:3002/health
+
+###
+
+POST http://localhost:3002/signup
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "testpassword"
+}
+
+###
+
+POST http://localhost:3002/signin
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "testpassword"
+}
+
+###
+
+GET http://localhost:3002/api/v1/customers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzNDE4MzUsImlhdCI6MTc1MDMzODIzNSwidXNlcl9pZCI6ImVjZDlhNDgxLTUzY2QtNDZhNS1hMzJmLTcxNTg2Mzg2M2YyZSJ9.5myAdwynNlK9xiE_D7q4WOTPQY0FRJMJ0OoGyvfzWvM
+
+###
+
+POST http://localhost:3002/api/v1/customers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzNDE4MzUsImlhdCI6MTc1MDMzODIzNSwidXNlcl9pZCI6ImVjZDlhNDgxLTUzY2QtNDZhNS1hMzJmLTcxNTg2Mzg2M2YyZSJ9.5myAdwynNlK9xiE_D7q4WOTPQY0FRJMJ0OoGyvfzWvM
+Content-Type: application/json
+
+{
+  "name": "New Customer",
+  "email": "newcustomer@example.coms"
+}
+
+###
+
+GET http://localhost:3002/api/v1/customers/668ce943-4ef0-4d07-91fb-d96bf2d227d2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzNDE4MzUsImlhdCI6MTc1MDMzODIzNSwidXNlcl9pZCI6ImVjZDlhNDgxLTUzY2QtNDZhNS1hMzJmLTcxNTg2Mzg2M2YyZSJ9.5myAdwynNlK9xiE_D7q4WOTPQY0FRJMJ0OoGyvfzWvM
+
+###
+
+PUT http://localhost:3002/api/v1/customers/668ce943-4ef0-4d07-91fb-d96bf2d227d2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzNDE4MzUsImlhdCI6MTc1MDMzODIzNSwidXNlcl9pZCI6ImVjZDlhNDgxLTUzY2QtNDZhNS1hMzJmLTcxNTg2Mzg2M2YyZSJ9.5myAdwynNlK9xiE_D7q4WOTPQY0FRJMJ0OoGyvfzWvM
+Content-Type: application/json
+
+{
+  "name": "Updated Customer",
+  "email": "updatedcustomer@example.com"
+}
+
+###
+
+DELETE http://localhost:3002/api/v1/customers/668ce943-4ef0-4d07-91fb-d96bf2d227d2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzNDE4MzUsImlhdCI6MTc1MDMzODIzNSwidXNlcl9pZCI6ImVjZDlhNDgxLTUzY2QtNDZhNS1hMzJmLTcxNTg2Mzg2M2YyZSJ9.5myAdwynNlK9xiE_D7q4WOTPQY0FRJMJ0OoGyvfzWvM
+
+###
+
+GET https://fakestoreapi.com/products
+
+###
+
+GET https://fakestoreapi.com/products/1
+
+###
+
+GET http://localhost:3002/api/v1/customers/668ce943-4ef0-4d07-91fb-d96bf2d227d2/favorites
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzNDE4MzUsImlhdCI6MTc1MDMzODIzNSwidXNlcl9pZCI6ImVjZDlhNDgxLTUzY2QtNDZhNS1hMzJmLTcxNTg2Mzg2M2YyZSJ9.5myAdwynNlK9xiE_D7q4WOTPQY0FRJMJ0OoGyvfzWvM
+
+###
+
+POST http://localhost:3002/api/v1/customers/668ce943-4ef0-4d07-91fb-d96bf2d227d2/favorites
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzNDE4MzUsImlhdCI6MTc1MDMzODIzNSwidXNlcl9pZCI6ImVjZDlhNDgxLTUzY2QtNDZhNS1hMzJmLTcxNTg2Mzg2M2YyZSJ9.5myAdwynNlK9xiE_D7q4WOTPQY0FRJMJ0OoGyvfzWvM
+Content-Type: application/json
+
+{
+  "product_id": 2
+}
+
+###
+
+DELETE http://localhost:3002/api/v1/customers/668ce943-4ef0-4d07-91fb-d96bf2d227d2/favorites/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzNDE4MzUsImlhdCI6MTc1MDMzODIzNSwidXNlcl9pZCI6ImVjZDlhNDgxLTUzY2QtNDZhNS1hMzJmLTcxNTg2Mzg2M2YyZSJ9.5myAdwynNlK9xiE_D7q4WOTPQY0FRJMJ0OoGyvfzWvM
