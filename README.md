@@ -6,8 +6,7 @@ Essa é uma API Restful que permite gerenciar produtos favoritos de clientes.
 
 ### Funcionalidades
 
-- Autenticação de usuário (JWT)
-- Senha protegida (bcrypt)
+- Autenticação de usuário
 - Listagem de clientes
 - Listagem de produtos favoritos de um cliente
 - Adição de um produto favorito a um cliente
@@ -17,10 +16,12 @@ Essa é uma API Restful que permite gerenciar produtos favoritos de clientes.
 
 ### Tecnologias
 
-- Go with Gin
+- Go com Gin
 - Docker
 - PostgreSQL
 - Swagger
+- JWT
+- Bcrypt
 
 ### Instalação
 
@@ -57,5 +58,5 @@ http://localhost:3002/swagger/index.html
 
 Para acessar as rotas autenticadas, você deve adicionar o token no header da requisição:
 ```
-Authorization: Bearer <token>
+Authorization: Bearer <token>-
 ```
