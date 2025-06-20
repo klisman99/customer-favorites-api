@@ -6,7 +6,8 @@ Essa é uma API Restful que permite gerenciar produtos favoritos de clientes.
 
 ### Funcionalidades
 
-- Autenticação de usuário
+- Autenticação de usuário (JWT)
+- Senha protegida (bcrypt)
 - Listagem de clientes
 - Listagem de produtos favoritos de um cliente
 - Adição de um produto favorito a um cliente
@@ -52,4 +53,9 @@ http://localhost:3002
 Com o sistema iniciado, você pode acessar a documentação da API em:
 ```
 http://localhost:3002/swagger/index.html
+```
+
+Para acessar as rotas autenticadas, você deve adicionar o token no header da requisição:
+```
+Authorization: Bearer <token>
 ```

@@ -17,6 +17,11 @@ const docTemplate = `{
     "paths": {
         "/api/v1/customers": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Retrieves a list of all customers",
                 "produces": [
                     "application/json"
@@ -44,6 +49,11 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Creates a new customer with the provided details",
                 "consumes": [
                     "application/json"
@@ -93,6 +103,11 @@ const docTemplate = `{
         },
         "/api/v1/customers/{customer_id}": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Retrieves a customer by their unique identifier",
                 "produces": [
                     "application/json"
@@ -138,6 +153,11 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Updates an existing customer's details",
                 "consumes": [
                     "application/json"
@@ -198,6 +218,11 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Deletes a customer by their ID",
                 "tags": [
                     "Customer"
@@ -239,6 +264,11 @@ const docTemplate = `{
         },
         "/api/v1/customers/{customer_id}/favorites": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Retrieves a list of all favorite products for the specified customer",
                 "produces": [
                     "application/json"
@@ -287,6 +317,11 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Adds a product to the specified customer's list of favorite products",
                 "consumes": [
                     "application/json"
@@ -343,6 +378,11 @@ const docTemplate = `{
         },
         "/api/v1/customers/{customer_id}/favorites/{product_id}": {
             "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Removes a product from the customer's list of favorite products",
                 "produces": [
                     "application/json"
@@ -500,12 +540,12 @@ const docTemplate = `{
             "properties": {
                 "email": {
                     "type": "string",
-                    "example": "john@example.com"
+                    "example": "frodo.baggins@example.com"
                 },
                 "name": {
                     "type": "string",
                     "minLength": 3,
-                    "example": "John Doe"
+                    "example": "Frodo Baggins"
                 }
             }
         },
@@ -514,7 +554,7 @@ const docTemplate = `{
             "properties": {
                 "email": {
                     "type": "string",
-                    "example": "john@example.com"
+                    "example": "frodo.baggins@example.com"
                 },
                 "id": {
                     "type": "string",
@@ -522,7 +562,7 @@ const docTemplate = `{
                 },
                 "name": {
                     "type": "string",
-                    "example": "John Doe"
+                    "example": "Frodo Baggins"
                 }
             }
         },
@@ -535,12 +575,12 @@ const docTemplate = `{
             "properties": {
                 "email": {
                     "type": "string",
-                    "example": "john@example.com"
+                    "example": "frodo.baggins@example.com"
                 },
                 "name": {
                     "type": "string",
                     "minLength": 3,
-                    "example": "John Doe"
+                    "example": "Frodo Baggins"
                 }
             }
         },
@@ -589,6 +629,14 @@ const docTemplate = `{
                     "example": 999.99
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "description": "Type \"Bearer\" followed by a space and JWT token.",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }`

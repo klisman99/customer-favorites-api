@@ -15,10 +15,10 @@ definitions:
   handler.CustomerCreateRequest:
     properties:
       email:
-        example: john@example.com
+        example: frodo.baggins@example.com
         type: string
       name:
-        example: John Doe
+        example: Frodo Baggins
         minLength: 3
         type: string
     required:
@@ -28,22 +28,22 @@ definitions:
   handler.CustomerResponse:
     properties:
       email:
-        example: john@example.com
+        example: frodo.baggins@example.com
         type: string
       id:
         example: 550e8400-e29b-41d4-a716-446655440000
         type: string
       name:
-        example: John Doe
+        example: Frodo Baggins
         type: string
     type: object
   handler.CustomerUpdateRequest:
     properties:
       email:
-        example: john@example.com
+        example: frodo.baggins@example.com
         type: string
       name:
-        example: John Doe
+        example: Frodo Baggins
         minLength: 3
         type: string
     required:
@@ -105,6 +105,8 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
       summary: Get all customers
       tags:
       - Customer
@@ -136,6 +138,8 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
       summary: Create a new customer
       tags:
       - Customer
@@ -163,6 +167,8 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
       summary: Delete customer
       tags:
       - Customer
@@ -193,6 +199,8 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
       summary: Get customer by ID
       tags:
       - Customer
@@ -233,6 +241,8 @@ paths:
           description: Internal server error
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
       summary: Update customer
       tags:
       - Customer
@@ -266,6 +276,8 @@ paths:
           description: Failed to fetch favorite products
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
       summary: Get customer's favorite products
       tags:
       - Favorite
@@ -302,6 +314,8 @@ paths:
           description: Failed to add to favorites
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
       summary: Add a product to customer's favorites
       tags:
       - Favorite
@@ -336,6 +350,8 @@ paths:
           description: Failed to remove from favorites
           schema:
             $ref: '#/definitions/handler.ErrorResponse'
+      security:
+      - BearerAuth: []
       summary: Remove a product from favorites
       tags:
       - Favorite
@@ -391,4 +407,10 @@ paths:
       summary: Sign up
       tags:
       - Auth
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

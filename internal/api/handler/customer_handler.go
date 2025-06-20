@@ -16,19 +16,19 @@ type CustomerHandler struct {
 }
 
 type CustomerCreateRequest struct {
-	Name  string `json:"name" validate:"required,min=3" example:"John Doe"`
-	Email string `json:"email" validate:"required,email" example:"john@example.com"`
+	Name  string `json:"name" validate:"required,min=3" example:"Frodo Baggins"`
+	Email string `json:"email" validate:"required,email" example:"frodo.baggins@example.com"`
 }
 
 type CustomerUpdateRequest struct {
-	Name  string `json:"name" validate:"required,min=3" example:"John Doe"`
-	Email string `json:"email" validate:"required,email" example:"john@example.com"`
+	Name  string `json:"name" validate:"required,min=3" example:"Frodo Baggins"`
+	Email string `json:"email" validate:"required,email" example:"frodo.baggins@example.com"`
 }
 
 type CustomerResponse struct {
 	ID    string `json:"id" example:"550e8400-e29b-41d4-a716-446655440000"`
-	Name  string `json:"name" example:"John Doe"`
-	Email string `json:"email" example:"john@example.com"`
+	Name  string `json:"name" example:"Frodo Baggins"`
+	Email string `json:"email" example:"frodo.baggins@example.com"`
 }
 
 type ErrorResponse struct {
@@ -44,6 +44,7 @@ func NewCustomerHandler(service *service.CustomerService) *CustomerHandler {
 // @Tags Customer
 // @Accept json
 // @Produce json
+// @Security BearerAuth
 // @Param customer body CustomerCreateRequest true "Customer details"
 // @Success 201 "Created customer details"
 // @Failure 400 {object} ErrorResponse "Invalid request data"
@@ -82,6 +83,7 @@ func (h *CustomerHandler) Create(c *gin.Context) {
 // @Description Retrieves a customer by their unique identifier
 // @Tags Customer
 // @Produce json
+// @Security BearerAuth
 // @Param customer_id path string true "Customer ID" example="550e8400-e29b-41d4-a716-446655440000"
 // @Success 200 {object} CustomerResponse "Customer details"
 // @Failure 400 {object} ErrorResponse "Invalid customer ID format"
@@ -114,6 +116,7 @@ func (h *CustomerHandler) GetByID(c *gin.Context) {
 // @Description Retrieves a list of all customers
 // @Tags Customer
 // @Produce json
+// @Security BearerAuth
 // @Success 200 {array} CustomerResponse "List of customers"
 // @Failure 500 {object} ErrorResponse "Internal server error"
 // @Router /api/v1/customers [get]
@@ -133,6 +136,7 @@ func (h *CustomerHandler) GetAll(c *gin.Context) {
 // @Tags Customer
 // @Accept json
 // @Produce json
+// @Security BearerAuth
 // @Param customer_id path string true "Customer ID" example="550e8400-e29b-41d4-a716-446655440000"
 // @Param customer body CustomerUpdateRequest true "Updated customer details"
 // @Success 204 "No content"
@@ -182,6 +186,7 @@ func (h *CustomerHandler) Update(c *gin.Context) {
 // @Summary Delete customer
 // @Description Deletes a customer by their ID
 // @Tags Customer
+// @Security BearerAuth
 // @Param customer_id path string true "Customer ID" example="550e8400-e29b-41d4-a716-446655440000"
 // @Success 204 "No content"
 // @Failure 400 {object} ErrorResponse "Invalid customer ID format"

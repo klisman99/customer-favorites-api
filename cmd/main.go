@@ -20,8 +20,14 @@ import (
 // @title Customer Favorites API
 // @version 1.0
 // @description This is an API to manage customer favorites products
+
 // @host localhost:3002
 // @BasePath /
+
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description Type "Bearer" followed by a space and JWT token.
 func main() {
 	database := db.Connect()
 
@@ -45,6 +51,14 @@ func main() {
 	favoriteHandler := handler.NewFavoriteHandler(favoriteService)
 
 	router := gin.Default()
+
+	ginMode := os.Getenv("GIN_MODE")
+	if ginMode == "release" {
+		gin.SetMode(gin.ReleaseMode)
+	} else {
+		gin.SetMode(gin.DebugMode)
+	}
+
 	router.Use(gin.Recovery())
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

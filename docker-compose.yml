@@ -23,6 +23,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pg123
       POSTGRES_PORT: 5432
+    env_file:
+      - .env
     ports:
       - '3002:3002'
     depends_on:

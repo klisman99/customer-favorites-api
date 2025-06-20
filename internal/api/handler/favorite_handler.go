@@ -37,6 +37,7 @@ func NewFavoriteHandler(favoriteService *service.FavoriteService) *FavoriteHandl
 // @Tags Favorite
 // @Accept json
 // @Produce json
+// @Security BearerAuth
 // @Param customer_id path string true "Customer ID" example="550e8400-e29b-41d4-a716-446655440000"
 // @Param favorite body FavoriteIncludeRequest true "Product to add to favorites"
 // @Success 204 "Product added to favorites"
@@ -74,6 +75,7 @@ func (h *FavoriteHandler) AddFavorite(c *gin.Context) {
 // @Description Removes a product from the customer's list of favorite products
 // @Tags Favorite
 // @Produce json
+// @Security BearerAuth
 // @Param customer_id path string true "Customer ID" example="550e8400-e29b-41d4-a716-446655440000"
 // @Param product_id path int true "Product ID to remove from favorites" example=123
 // @Success 204 "Product removed from favorites"
@@ -110,6 +112,7 @@ func (h *FavoriteHandler) RemoveFavorite(c *gin.Context) {
 // @Description Retrieves a list of all favorite products for the specified customer
 // @Tags Favorite
 // @Produce json
+// @Security BearerAuth
 // @Param customer_id path string true "Customer ID" example="550e8400-e29b-41d4-a716-446655440000"
 // @Success 200 {array} Product "List of favorite products"
 // @Failure 400 {object} ErrorResponse "Invalid customer ID"

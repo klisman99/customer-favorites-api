@@ -108,14 +108,19 @@ func (r *CustomerRepository) Delete(c context.Context, id string) error {
 	return err
 }
 
-func (r *CustomerRepository) FindByEmail(c context.Context, email string) (*model.Customer, error) {
+func (r *CustomerRepository) FindByEmail(c context.Context, email string, id string) (*model.Customer, error) {
 	query := `
 		SELECT id, name, email, created_at
 		FROM customers
 		WHERE email = $1
 	`
+	args := []interface{}{email}
 
-	row := r.DB.QueryRowContext(c, query, email)
+	if id != "" {
+		query += " AND id != $2"
+		args = append(args, id)
+	}
+	row := r.DB.QueryRowContext(c, query, args...)
 
 	var customer model.Customer
 	if err := row.Scan(&customer.ID, &customer.Name, &customer.Email, &customer.CreatedAt); err != nil {

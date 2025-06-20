@@ -18,7 +18,7 @@ func NewCustomerService(repo *db.CustomerRepository) *CustomerService {
 }
 
 func (s *CustomerService) Create(c context.Context, name string, email string) (*model.Customer, error) {
-	emailExists, err := s.customerRepo.FindByEmail(c, email)
+	emailExists, err := s.customerRepo.FindByEmail(c, email, "")
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (s *CustomerService) GetAll(c context.Context) ([]model.Customer, error) {
 }
 
 func (s *CustomerService) Update(c context.Context, id string, name string, email string) error {
-	emailExists, err := s.customerRepo.FindByEmail(c, email)
+	emailExists, err := s.customerRepo.FindByEmail(c, email, id)
 	if err != nil {
 		return err
 	}
